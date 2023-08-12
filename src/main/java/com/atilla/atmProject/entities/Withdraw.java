@@ -27,9 +27,8 @@ public class Withdraw {
     @Column(name="newBalance")
     private Long newBalance;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id", nullable = false)
-    @JsonIgnore
     User user;
 
 

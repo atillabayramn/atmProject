@@ -1,6 +1,7 @@
 package com.atilla.atmProject.business;
 
 import com.atilla.atmProject.business.requests.WithdrawCreateRequest;
+import com.atilla.atmProject.business.responses.WithdrawResponse;
 import com.atilla.atmProject.dataAccess.UserRepository;
 import com.atilla.atmProject.dataAccess.WithdrawRepository;
 import com.atilla.atmProject.entities.User;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class WithdrawService {
@@ -24,10 +26,14 @@ public class WithdrawService {
     }
 
 
-    public List<Withdraw> getAllWithdraws(Optional<Long> userId) {
-        if(userId.isPresent())
-            return withdrawRepository.findByUserId(userId.get());
-        return withdrawRepository.findAll();
+    public List<WithdrawResponse> getAllWithdraws(Optional<Long> userId) {
+        List<Withdraw> list;
+        if(userId.isPresent()) {
+            list = withdrawRepository.findByUserId(userId.get());
+        } else {
+            list = withdrawRepository.findAll();
+        }
+        return list.stream().map(w -> new WithdrawResponse(w)).collect(Collectors.toList());
     }
 
     public Withdraw withdrawOperation(WithdrawCreateRequest newWithdrawRequest) {

@@ -2,6 +2,7 @@ package com.atilla.atmProject.controllers;
 
 import com.atilla.atmProject.business.WithdrawService;
 import com.atilla.atmProject.business.requests.WithdrawCreateRequest;
+import com.atilla.atmProject.business.responses.WithdrawResponse;
 import com.atilla.atmProject.entities.Withdraw;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class WithdrawController {
 
 
     @GetMapping
-    public List<Withdraw> getAllWithdraws(@RequestParam Optional<Long> userId){
+    public List<WithdrawResponse> getAllWithdraws(@RequestParam Optional<Long> userId){
         return withdrawService.getAllWithdraws(userId);
     }
 

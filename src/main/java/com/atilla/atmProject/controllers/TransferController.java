@@ -2,6 +2,7 @@ package com.atilla.atmProject.controllers;
 
 import com.atilla.atmProject.business.TransferService;
 import com.atilla.atmProject.business.requests.TransferCreateRequest;
+import com.atilla.atmProject.business.responses.TransferResponse;
 import com.atilla.atmProject.entities.Transfer;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class TransferController {
     }
 
     @GetMapping
-    public List<Transfer> getAllTransfers(@RequestParam Optional<Long> userId){
+    public List<TransferResponse> getAllTransfers(@RequestParam Optional<Long> userId){
         return transferService.getAllTransfers(userId);
     }
 

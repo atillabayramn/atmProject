@@ -2,6 +2,7 @@ package com.atilla.atmProject.controllers;
 
 import com.atilla.atmProject.business.DepositService;
 import com.atilla.atmProject.business.requests.DepositCreateRequest;
+import com.atilla.atmProject.business.responses.DepositResponse;
 import com.atilla.atmProject.entities.Deposit;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class DepositController {
 
 
     @GetMapping
-    public List<Deposit> getAllDeposits(@RequestParam Optional<Long> userId){
+    public List<DepositResponse> getAllDeposits(@RequestParam Optional<Long> userId){
         return depositService.getAllDeposits(userId);
     }
 

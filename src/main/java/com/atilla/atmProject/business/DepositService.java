@@ -1,6 +1,7 @@
 package com.atilla.atmProject.business;
 
 import com.atilla.atmProject.business.requests.DepositCreateRequest;
+import com.atilla.atmProject.business.responses.DepositResponse;
 import com.atilla.atmProject.dataAccess.DepositRepository;
 import com.atilla.atmProject.dataAccess.UserRepository;
 import com.atilla.atmProject.entities.Deposit;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DepositService {
@@ -23,10 +25,14 @@ public class DepositService {
         this.userService = userService;
     }
 
-    public List<Deposit> getAllDeposits(Optional<Long> userId) {
-        if(userId.isPresent())
-            return depositRepository.findByUserId(userId.get());
-        return depositRepository.findAll();
+    public List<DepositResponse> getAllDeposits(Optional<Long> userId) {
+        List<Deposit> list;
+        if(userId.isPresent()) {
+            list = depositRepository.findByUserId(userId.get());
+        } else {
+            list = depositRepository.findAll();
+        }
+        return list.stream().map(d -> new DepositResponse(d)).collect(Collectors.toList());
     }
 
     public Deposit depositOperation(DepositCreateRequest depositCreateRequest) {

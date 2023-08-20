@@ -1,6 +1,7 @@
 package com.atilla.atmProject.business;
 
 import com.atilla.atmProject.business.requests.TransferCreateRequest;
+import com.atilla.atmProject.business.responses.TransferResponse;
 import com.atilla.atmProject.dataAccess.TransferRepository;
 import com.atilla.atmProject.dataAccess.UserRepository;
 import com.atilla.atmProject.entities.Transfer;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransferService {
@@ -23,10 +25,14 @@ public class TransferService {
         this.userService = userService;
     }
 
-    public List<Transfer> getAllTransfers(Optional<Long> userId) {
-        if(userId.isPresent())
-            return transferRepository.findByUserId(userId.get());
-        return transferRepository.findAll();
+    public List<TransferResponse> getAllTransfers(Optional<Long> userId) {
+        List<Transfer> list;
+        if(userId.isPresent()) {
+            list = transferRepository.findByUserId(userId.get());
+        } else {
+            list = transferRepository.findAll();
+        }
+        return list.stream().map(t -> new TransferResponse(t)).collect(Collectors.toList());
     }
 
     public Transfer transferOperation(TransferCreateRequest transferCreateRequest) {

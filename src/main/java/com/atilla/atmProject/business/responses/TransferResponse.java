@@ -21,7 +21,7 @@ public class TransferResponse {
         this.name = transfer.getName();
         this.amount = transfer.getAmount();
         this.userId = transfer.getUser().getId();
-        this.userName = transfer.getUser().getName();
+        this.userName = transfer.getUser().getUsername();
         this.balance = transfer.getUser().getBalance();
         this.getMoneyUserId = transfer.getGetMoneyUserId();
 

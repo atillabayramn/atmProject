@@ -19,7 +19,7 @@ public class DepositResponse {
         this.name = deposit.getName();
         this.amount = deposit.getAmount();
         this.userId = deposit.getUser().getId();
-        this.userName = deposit.getUser().getName();
+        this.userName = deposit.getUser().getUsername();
         this.balance = deposit.getUser().getBalance();
         this.newBalance = deposit.getNewBalance();
 

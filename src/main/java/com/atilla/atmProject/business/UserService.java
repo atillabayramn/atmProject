@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
     UserRepository userRepository;
 
     public UserService(UserRepository userRepository){
@@ -32,7 +33,7 @@ public class UserService {
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()){
             User foundUser = user.get();
-            foundUser.setName(newUser.getName());
+            foundUser.setUsername(newUser.getUsername());
             foundUser.setPassword(newUser.getPassword());
             foundUser.setBalance(newUser.getBalance());
             foundUser.setUserId(newUser.getUserId());
@@ -46,4 +47,6 @@ public class UserService {
     public void deleteById(Long userId) {
         userRepository.deleteById(userId);
     }
+
+
 }

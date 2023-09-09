@@ -19,7 +19,7 @@ public class WithdrawResponse {
         this.name = withdraw.getName();
         this.amount = withdraw.getAmount();
         this.userId = withdraw.getUser().getId();
-        this.userName = withdraw.getUser().getName();
+        this.userName = withdraw.getUser().getUsername();
         this.balance = withdraw.getUser().getBalance();
         this.newBalance = withdraw.getNewBalance();
 

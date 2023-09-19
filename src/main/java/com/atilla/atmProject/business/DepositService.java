@@ -8,6 +8,7 @@ import com.atilla.atmProject.entities.Deposit;
 import com.atilla.atmProject.entities.User;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -57,6 +58,7 @@ public class DepositService {
             deposit.setAmount(depositCreateRequest.getAmount());
             deposit.setNewBalance(depositCreateRequest.getNewBalance());
             deposit.setUser(user.get());
+            deposit.setCreateDate(new Date());
             depositRepository.save(deposit);
             return deposit;
         }

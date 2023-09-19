@@ -12,4 +12,7 @@ import lombok.NoArgsConstructor;
 public class UserResponse {
     private String message;
     Long userId;
+    Long balance;
+    String accessToken;
+    String refreshToken;
 }

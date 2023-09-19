@@ -8,6 +8,7 @@ import com.atilla.atmProject.entities.User;
 import com.atilla.atmProject.entities.Withdraw;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,6 +62,7 @@ public class WithdrawService {
             withdraw.setAmount(withdrawCreateRequest.getAmount());
             withdraw.setNewBalance(withdrawCreateRequest.getNewBalance());
             withdraw.setUser(user.get());
+            withdraw.setCreateDate(new Date());
             withdrawRepository.save(withdraw);
             return withdraw;
         }

@@ -1,9 +1,12 @@
 package com.atilla.atmProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Entity
 @Table(name="deposits")
@@ -28,7 +31,9 @@ public class Deposit {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id", nullable = false)
+    @JsonIgnore
     User user;
 
-
+    @Temporal(TemporalType.TIMESTAMP)
+    Date createDate;
 }

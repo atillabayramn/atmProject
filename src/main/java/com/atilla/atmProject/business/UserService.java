@@ -1,21 +1,32 @@
 package com.atilla.atmProject.business;
 
+import com.atilla.atmProject.dataAccess.DepositRepository;
+import com.atilla.atmProject.dataAccess.TransferRepository;
 import com.atilla.atmProject.dataAccess.UserRepository;
+import com.atilla.atmProject.dataAccess.WithdrawRepository;
+import com.atilla.atmProject.entities.Deposit;
+import com.atilla.atmProject.entities.Transfer;
 import com.atilla.atmProject.entities.User;
+import com.atilla.atmProject.entities.Withdraw;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
 
     UserRepository userRepository;
+    WithdrawRepository withdrawRepository;
+    DepositRepository depositRepository;
+    TransferRepository transferRepository;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, WithdrawRepository withdrawRepository,
+                       DepositRepository depositRepository, TransferRepository transferRepository) {
         this.userRepository = userRepository;
+        this.withdrawRepository = withdrawRepository;
+        this.depositRepository = depositRepository;
+        this.transferRepository = transferRepository;
     }
-
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -49,4 +60,16 @@ public class UserService {
     }
 
 
+    public List<Object> getUserSummary(Long userId) {
+        List<Withdraw> withdraws = withdrawRepository.findWithdrawByUserId(userId);
+        List<Deposit> deposits = depositRepository.findDepositByUserId(userId);
+        List<Transfer> transfers = transferRepository.findTransferByUserId(userId);
+
+        List<Object> result = new ArrayList<>();
+        result.addAll(withdraws);
+        result.addAll(deposits);
+        result.addAll(transfers);
+
+        return result;
+    }
 }

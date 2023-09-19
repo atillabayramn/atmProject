@@ -25,7 +25,7 @@ public class TransferController {
     }
 
     @PostMapping
-    public Transfer createOneTransfer(@RequestBody TransferCreateRequest transferCreateRequest){
+    public TransferResponse createOneTransfer(@RequestBody TransferCreateRequest transferCreateRequest){
         return transferService.transferOperation(transferCreateRequest);
     }
 

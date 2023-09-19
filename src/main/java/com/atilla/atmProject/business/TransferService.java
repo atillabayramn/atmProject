@@ -8,6 +8,7 @@ import com.atilla.atmProject.entities.Transfer;
 import com.atilla.atmProject.entities.User;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class TransferService {
         return list.stream().map(t -> new TransferResponse(t)).collect(Collectors.toList());
     }
 
-    public Transfer transferOperation(TransferCreateRequest transferCreateRequest) {
+    public TransferResponse transferOperation(TransferCreateRequest transferCreateRequest) {
 
         Optional<User> sendMoneyUser = userRepository.findById(transferCreateRequest.getUserId());
         Optional<User> getMoneyUser = userRepository.findById(transferCreateRequest.getGetMoneyUserId());
@@ -55,7 +56,7 @@ public class TransferService {
 
     }
 
-    public Transfer createOneTransfer(TransferCreateRequest transferCreateRequest){
+    public TransferResponse createOneTransfer(TransferCreateRequest transferCreateRequest){
         Transfer transfer = new Transfer();
         Optional<User> user = userRepository.findById(transferCreateRequest.getUserId());
         if(user.isPresent()) {
@@ -63,8 +64,11 @@ public class TransferService {
             transfer.setAmount(transferCreateRequest.getAmount());
             transfer.setGetMoneyUserId(transferCreateRequest.getGetMoneyUserId());
             transfer.setUser(user.get());
+            transfer.setNewBalance(user.get().getBalance());
+            transfer.setCreateDate(new Date());
             transferRepository.save(transfer);
-            return transfer;
+            TransferResponse transferResponse = new TransferResponse(transfer);
+            return transferResponse;
         }
         return null;
     }

@@ -5,6 +5,7 @@ import com.atilla.atmProject.entities.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/users")
@@ -39,6 +40,11 @@ public class UsersController {
     @DeleteMapping("/{userId}")
     public void deleteOneUser(@PathVariable Long userId){
         userService.deleteById(userId);
+    }
+
+    @GetMapping("/summary/{userId}")
+    public List<Object> getUserSummary(@PathVariable Long userId){
+        return userService.getUserSummary(userId);
     }
 
 
